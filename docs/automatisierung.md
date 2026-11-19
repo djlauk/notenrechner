@@ -6,5 +6,5 @@ ob er grün oder rot wird, entscheidet allein der Exit-Code.
 | Workflow | Auslöser | Zweck |
 |----------|----------|-------|
 | `test.yml` | Push, Pull Request | Tests ausführen, bei Fehler auf `main` ein Issue erstellen |
-| `release.yml` | Tag `v*` | ZIP bauen und Release veröffentlichen |
+| `release.yml` | Tag `v*` | ZIP und Windows-EXE bauen, Release veröffentlichen |
 | `docs.yml` | Push auf `main` | Diese Doku bauen und auf Pages veröffentlichen |

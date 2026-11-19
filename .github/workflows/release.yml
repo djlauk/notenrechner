@@ -5,11 +5,32 @@ on:
     tags: ["v*"]
 
 permissions:
-  contents: write   # Release erstellen
+  contents: read
 
 jobs:
+  exe:
+    runs-on: windows-latest          # Windows-Runner: Ergebnis ist eine .exe
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Abhängigkeiten installieren
+        run: pip install . pyinstaller
+      - name: EXE bauen
+        run: pyinstaller --onefile --name notenrechner --paths src src/notenrechner/__main__.py
+      - name: EXE testen                # Exit-Code ≠ 0 → kein Release
+        run: .\dist\notenrechner.exe 42 --max 50
+      - uses: actions/upload-artifact@v4
+        with:
+          name: notenrechner-exe
+          path: dist/notenrechner.exe
+
   release:
+    needs: exe                         # wartet auf den EXE-Job
     runs-on: ubuntu-latest
+    permissions:
+      contents: write                  # Release erstellen
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -21,7 +42,11 @@ jobs:
         run: pytest
       - name: ZIP bauen
         run: git archive --format=zip --prefix=notenrechner/ -o "notenrechner-$GITHUB_REF_NAME.zip" HEAD
+      - name: EXE herunterladen
+        uses: actions/download-artifact@v4
+        with:
+          name: notenrechner-exe
       - name: Release erstellen
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release create "$GITHUB_REF_NAME" "notenrechner-$GITHUB_REF_NAME.zip" --generate-notes
+        run: gh release create "$GITHUB_REF_NAME" "notenrechner-$GITHUB_REF_NAME.zip" notenrechner.exe --generate-notes

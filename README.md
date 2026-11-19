@@ -21,7 +21,7 @@ pytest                        # Tests ausführen
 Oder mit [uv](https://docs.astral.sh/uv/):
 
 ```text
-uv sync                       # Python venv erstellen in Verzeichnis .venv und Tools installieren
+uv sync --extra dev           # Python venv erstellen in Verzeichnis .venv und Tools installieren
 .venv\Scripts\activate        # (Windows)   bzw.   source .venv/bin/activate   (Linux/macOS)
 notenrechner 42               # Tool ausführen
 pytest                        # Tests ausführen
@@ -44,7 +44,7 @@ Die Option `--rundung` hat Vorrang.
 | Datei | Auslöser | Was passiert |
 |-------|----------|--------------|
 | `test.yml` | Push, Pull Request | `pytest` ausführen; bei Fehler auf `main` automatisch ein Issue erstellen |
-| `release.yml` | Tag `v*` | Tests, ZIP bauen, GitHub-Release erstellen |
+| `release.yml` | Tag `v*` | Tests, ZIP bauen, Windows-EXE bauen (PyInstaller), GitHub-Release erstellen |
 | `docs.yml` | Push auf `main` (Docs) | Doku mit MkDocs bauen und auf GitHub Pages veröffentlichen |
 
 **Einmalig nötig:** Settings → Pages → Source: *GitHub Actions*.
