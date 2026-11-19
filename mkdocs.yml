@@ -1,0 +1,9 @@
+site_name: notenrechner
+copyright: © 2026 Daniel J. Lauk, MIT-Lizenz
+site_description: Punkte in Noten umrechnen – Demo für GitHub Actions und Pages
+theme:
+  name: readthedocs
+nav:
+  - Start: index.md
+  - Benutzung: benutzung.md
+  - Automatisierung: automatisierung.md
