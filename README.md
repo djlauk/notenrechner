@@ -11,9 +11,18 @@ Es rechnet Punkte in eine Note der Schweizer Skala (1–6) um.
 ## Lokal ausprobieren
 
 ```text
-python -m venv .venv
-.venv\Scripts\activate          (Windows)   bzw.   source .venv/bin/activate   (Linux/macOS)
+python -m venv .venv          # Python venv erstellen in Verzeichnis .venv
+.venv\Scripts\activate        # (Windows)   bzw.   source .venv/bin/activate   (Linux/macOS)
 pip install -e ".[dev]"       # Tool und Test-Abhängigkeiten installieren
+notenrechner 42               # Tool ausführen
+pytest                        # Tests ausführen
+```
+
+Oder mit [uv](https://docs.astral.sh/uv/):
+
+```text
+uv sync                       # Python venv erstellen in Verzeichnis .venv und Tools installieren
+.venv\Scripts\activate        # (Windows)   bzw.   source .venv/bin/activate   (Linux/macOS)
 notenrechner 42               # Tool ausführen
 pytest                        # Tests ausführen
 ```
