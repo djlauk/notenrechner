@@ -49,12 +49,49 @@ Die Option `--rundung` hat Vorrang.
 
 **Einmalig nötig:** Settings → Pages → Source: *GitHub Actions*.
 
+## Live-Demo im Unterricht
+
+1. Source code clonen oder herunterladen
+2. venv einrichten: `pip install -e ".[dev]"` oder `uv sync --extras dev`
+3. venv aktivieren: `.venv\Scripts\activate` (Windows Terminal) oder `. .venv/Scripts/activate` (bash)
+4. Tests demonstrieren: `pytest`
+5. Funktionsweise und Errolevel demonstrieren:
+    - `notenrechner 42; echo $?` (bash)
+    - `notenrechner 60 --max 50; echo $?` (bash)
+6. workflow files ansehen: Name, Trigger, Jobs und Steps (runs und uses)
+7. Repo auf GitHub einrichten
+    - Neues Repo zu Demo-Zwecken anlegen
+    - Settings → Pages → Build and Deployment → Source → GitHub Actions
+8. Repo auf Git pushen → Actions ansehen
+    - `git add origin <URL vom Repo> && git push`
+    - Gehostete Website zeigen
+9.  Fehler zeigen
+    - `src/notenrechner/rechnen.py` Berechnungsformel kaputt machen (z. B. `+ 5` statt `+ 1` am Ende)
+    - `pytest` lokal ausführen lassen
+    - `git add src/notenrechner/rechnen.py && git commit -m 'demo: break calculation on purpose' && git push`
+    - GitHub Action → wird rot → Issue angelegt → Link zum konkreten Lauf → Link zum commit und diff
+10. Fehler beheben
+    - `src/notenrechner/rechnen.py` Berechnungsformel kaputt machen (z. B. `+ 5` statt `+ 1` am Ende)
+    - `pytest` lokal ausführen lassen
+    - `git add src/notenrechner/rechnen.py && git commit`
+    - Commit-Message im Editor eingeben (Issue-ID überprüfen)
+      ```
+      fix: calculation
+
+      closes #1
+      ```
+    - `git push`
+    - GitHub Action → wird grün → Issue grün → Link zum commit und diff
+11. Release zeigen: `git tag v1.0.0; git push origin v1.0.0`
+
 ## Entstehung
 
 Dieses Beispielprojekt wurde für eine Unterrichts-Session erstellt, mit Unterstützung
 von KI (Claude von Anthropic, November 2026): Entwurf von Code, Tests, Workflows und
-Dokumentation. 
+Dokumentation.
+
+Inhaltlich geprüft und angepasst von Daniel J. Lauk.
 
 ## Lizenz
 
-MIT-Lizenz, siehe [LICENSE](LICENSE). © 2026 Daniel J. Lauk
+MIT-Lizenz, siehe [LICENSE](LICENSE). Copyright © 2026 Daniel J. Lauk
